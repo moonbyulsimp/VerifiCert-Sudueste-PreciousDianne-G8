@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Profile</h2>
+{% if u.profile_photo %}<img src="{{ u.profile_photo.url }}" width="120">{% endif %}
+<p>Name: {{ u.get_full_name }}</p>
+<p>Username: {{ u.username }}</p>
+<p>Email: {{ u.email }}</p>
+<p>Contact: {{ u.contact_number }}</p>
+<p>Role: {{ u.get_role_display }}</p>
+<a href="{% url 'profile_edit' %}">Edit Profile</a>
+{% endblock %}

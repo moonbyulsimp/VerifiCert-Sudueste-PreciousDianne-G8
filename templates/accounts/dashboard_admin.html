@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Officer Dashboard</h2>
+<p>Welcome, {{ user.get_full_name|default:user.username }}!</p>
+
+<ul>
+  <li><a href="#">Manage Events</a></li>
+  <li><a href="#">Templates</a></li>
+  <li><a href="#">Issue Certificates</a></li>
+  <li><a href="#">Reports</a></li>
+</ul>
+{% endblock %}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>VerifiCert</title></head>
+<body>
+<nav>
+  <strong>VerifiCert</strong>
+  {% if user.is_authenticated %}
+    {% if user.role == 'ADMIN' %}<a href="{% url 'admin_dashboard' %}">Officer Dashboard</a>{% endif %}
+    {% if user.role == 'COORDINATOR' %}<a href="{% url 'coordinator_dashboard' %}">Coordinator Dashboard</a>{% endif %}
+    {% if user.role == 'ADVISER' %}<a href="{% url 'adviser_dashboard' %}">Adviser Dashboard</a>{% endif %}
+    <a href="{% url 'profile' %}">Profile</a>
+    <form method="post" action="{% url 'logout' %}" style="display:inline">
+      {% csrf_token %}<button type="submit">Logout</button>
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Register</a>
+  {% endif %}
+</nav>
+
+{% for message in messages %}
+  <p class="msg {{ message.tags }}">{{ message }}</p>
+{% endfor %}
+
+{% block content %}{% endblock %}
+</body>
+</html>
