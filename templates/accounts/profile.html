@@ -1,11 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>My Profile</h2>
-{% if u.profile_photo %}<img src="{{ u.profile_photo.url }}" width="120">{% endif %}
-<p>Name: {{ u.get_full_name }}</p>
-<p>Username: {{ u.username }}</p>
-<p>Email: {{ u.email }}</p>
-<p>Contact: {{ u.contact_number }}</p>
-<p>Role: {{ u.get_role_display }}</p>
-<a href="{% url 'profile_edit' %}">Edit Profile</a>
+<div class="card">
+  <h2>My Profile</h2>
+
+  <div class="profile-header">
+    {% if u.profile_photo %}
+      <img src="{{ u.profile_photo.url }}" alt="Profile photo" class="profile-photo">
+    {% else %}
+      <div class="avatar-placeholder">{{ u.username|slice:":1"|upper }}</div>
+    {% endif %}
+    <div>
+      <h3>{{ u.get_full_name|default:u.username }}</h3>
+      <span class="badge">{{ u.get_role_display }}</span>
+    </div>
+  </div>
+
+  <table class="details">
+    <tr><th>Username</th><td>{{ u.username }}</td></tr>
+    <tr><th>Email</th><td>{{ u.email }}</td></tr>
+    <tr><th>Contact Number</th><td>{{ u.contact_number|default:"Not set" }}</td></tr>
+    <tr><th>Role</th><td>{{ u.get_role_display }}</td></tr>
+  </table>
+
+  <a href="{% url 'profile_edit' %}" class="btn">Edit Profile</a>
+</div>
 {% endblock %}
